@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using FlightFight.GamePlay.Controllers.Base;
+using FlightFight.GamePlay.Managers;
 
 namespace FlightFight.GamePlay.Controllers
 {
@@ -23,15 +24,9 @@ namespace FlightFight.GamePlay.Controllers
 
         private void FixedUpdate()
         {
-            if (_GlobalGameManager)
-            {
-                _FaceTargetDir = _GlobalGameManager.GetFaceVector();
-                _FaceLock();
-            }
-            else
-            {
-                Debug.LogError("No GlobalGameManager is set");
-            }
+            _FaceTargetDir = GlobalGameManager.GetFaceVector();
+            _FaceLock();
+
 
             if (Vector2.zero != _moveInput)
             {
