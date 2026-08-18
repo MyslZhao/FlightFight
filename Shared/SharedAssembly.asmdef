@@ -1,0 +1,16 @@
+{
+    "name": "MyslZhao.FlightFight.Shared",
+    "rootNamespace": "FlightFight.Shared",
+    "references": [
+        "GUID:c0115945b6450f544a19881529b3a032"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

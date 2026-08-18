@@ -1,0 +1,19 @@
+{
+    "name": "MyslZhao.FlightFight.GamePlay",
+    "rootNamespace": "FlightFight.GamePlay",
+    "references": [
+        "GUID:b4cac8833d3c81b449c33a0f7592ab3d",
+        "GUID:2f1413ecbed85274abcd5071fd6f21c0",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:c0115945b6450f544a19881529b3a032"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

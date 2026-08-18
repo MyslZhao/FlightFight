@@ -1,0 +1,19 @@
+{
+    "name": "MyslZhao.FlightFight.UI",
+    "rootNamespace": "FlightFight.UI",
+    "references": [
+        "GUID:b4cac8833d3c81b449c33a0f7592ab3d",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:01d8c8e5e7bbdd54b9bca04ee0ea0a1b",
+        "GUID:c0115945b6450f544a19881529b3a032"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
