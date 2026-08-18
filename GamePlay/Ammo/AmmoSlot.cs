@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FlightFight.Shared.Enums;
 
 namespace FlightFight.GamePlay.Ammo
@@ -6,24 +7,33 @@ namespace FlightFight.GamePlay.Ammo
     {
         private AmmoEnum _Ammo;
 
-        private int _CurrentNumber;
+        private int _Storage;
 
-        private float _currentColddownProcess;
+        private int _Number;
 
         public AmmoEnum Ammo => _Ammo;
+        
+        public int Storage => _Storage;
 
-        public int Number => _CurrentNumber;
-
-        public AmmoSlot(AmmoEnum ammo)
+        public AmmoSlot(AmmoEnum ammo, int storage)
         {
             _Ammo = ammo;
+            _Storage = storage;
+            _Number = _Storage;
         }
 
-        public void Consume()
+        internal bool TryConsume()
         {
-            if (_CurrentNumber == 0)
-                return;
-            _CurrentNumber -= 1;
+            _Number -= 1;
+
+            Debug.Assert(_Number >= 0, "Wow your '_Number' is blow than zero!");
+
+            if (_Number == 0)
+            {
+                _Number = _Storage;
+                return true;
+            }
+            return false;
         }
     }
 

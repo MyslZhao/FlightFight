@@ -1,5 +1,6 @@
+using System.Diagnostics;
 using System.Linq;
-
+using FlightFight.GamePlay.Managers;
 using FlightFight.Shared.Enums;
 
 namespace FlightFight.GamePlay.Ammo
@@ -10,7 +11,7 @@ namespace FlightFight.GamePlay.Ammo
 
         private AmmoSlot _LoadedAmmoSlot => _BulletSlots[_SlotCounter];
         
-        private int _SlotCounter;
+        private int _SlotCounter = 0;
 
         public AmmoEnum LoadedAmmo => _LoadedAmmoSlot.Ammo;
 
@@ -18,17 +19,14 @@ namespace FlightFight.GamePlay.Ammo
         {
             foreach (var i in Enumerable.Range(0, 5))
             {
-                _BulletSlots[i] = new AmmoSlot(ammoList[i]);
+                var _1 = BulletManager.BulletAssets[ammoList[i]];
+                _BulletSlots[i] = new AmmoSlot(_1.Name, _1.Storage);
             }
         }
 
-        public void Consume()
+        internal void TryConsume()
         {
-            if (_LoadedAmmoSlot.Number <= 0) return;
-
-            _LoadedAmmoSlot.Consume();
-
-            if (_LoadedAmmoSlot.Number == 0)
+            if (_LoadedAmmoSlot.TryConsume())
             {
                 _SlotCounter += 1;
                 _SlotCounter %= 5;
