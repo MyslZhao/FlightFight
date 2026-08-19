@@ -7,7 +7,7 @@ namespace FlightFight.GamePlay.Ammo
 {
     public class AmmoGroup
     {
-        private AmmoSlot[] _BulletSlots = new AmmoSlot[5];
+        private readonly AmmoSlot[] _BulletSlots = new AmmoSlot[5];
 
         private AmmoSlot _LoadedAmmoSlot => _BulletSlots[_SlotCounter];
         

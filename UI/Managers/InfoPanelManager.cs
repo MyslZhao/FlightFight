@@ -11,12 +11,13 @@ namespace FlightFight.UI.Managers
 {
     public class InfoPanelManager : MonoBehaviour
     {
+        #region 私有与序列字段
+
         [Header("参数面板")]
         [Obsolete(" 请使用 _InfoTexts 替代")]
         [SerializeField] private SerializableDictionary<InfoData.Sid, TMP_Text> _SidTexts = new();
 
         [Header("参数设置")]
-
         [SerializeField] private float _UpdateFPS;
 
         private Dictionary<InfoData, TMP_Text> _InfoTexts = new();
@@ -42,7 +43,17 @@ namespace FlightFight.UI.Managers
 
         private bool _IsInit = false;
 
+        #endregion
+
+        #region 公开字段
+
         public bool IsInit => _IsInit;
+
+        #endregion
+
+        #region 方法实现
+
+        // NOTE: 部分方法徐进一步优化和修改，废除冗余方法
 
         private void _SafeDictionalize()
         {
@@ -80,6 +91,10 @@ namespace FlightFight.UI.Managers
             _UpdateAll();
         }
 
+        #endregion
+
+        #region 对外API
+
         public void Init(float selfHealth = 0.0f, float selfEnergy = 0.0f, float enemyHealth = 0.0f, float enemyEnergy = 0.0f)
         {
             if (!_IsInit)
@@ -105,5 +120,7 @@ namespace FlightFight.UI.Managers
             _RawInfo[infoType] += deltaValue;
             _UpdateByType(infoType);
         }
+
+        #endregion
     }
 }

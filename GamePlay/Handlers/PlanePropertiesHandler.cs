@@ -103,7 +103,7 @@ namespace FlightFight.GamePlay.Handlers
 
         #endregion
 
-        #region 对外API实现
+        #region 方法实现
 
         private bool _IsShootable(AmmoEnum type)
         {

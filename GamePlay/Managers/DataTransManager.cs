@@ -7,6 +7,8 @@ namespace FlightFight.GamePlay.Managers
 {
     public class DataTransManager: MonoBehaviour
     {
+        #region 私有字段与序列字段
+
         [Header("Test模式")]
         [SerializeField]private bool EnableTest = false;
 
@@ -25,11 +27,19 @@ namespace FlightFight.GamePlay.Managers
 
         private readonly Dictionary<PlaneIdentity, int> _AmmoNumbers = new();
 
+        #endregion
+
+        #region 公开字段
+
         internal static bool IsReady => _Instance._IsReady;
 
         internal static AmmoEnum[] SelfAmmo => _Instance._AmmoLists[PlaneIdentity.SELF];
 
         internal static AmmoEnum[] EnemyAmmo => _Instance._AmmoLists[PlaneIdentity.ENEMY];
+
+        #endregion
+
+        #region 生命周期
 
         void Awake()
         {
@@ -61,6 +71,10 @@ namespace FlightFight.GamePlay.Managers
                 }
             }
         }
+
+        #endregion
+
+        #region 方法实现
 
         private void _SafeDictionalize()
         {
@@ -95,12 +109,18 @@ namespace FlightFight.GamePlay.Managers
             _AmmoNumbers[identity] += 1;
         }
 
+        #endregion
+
+        #region 对外API
+
         public void DeployAmmo(PlaneIdentity identity, AmmoEnum ammo)
         {
             _DeployAmmo(identity, ammo);
 
             _CheckReady();
         }
+
+        #endregion
 
     }
 

@@ -11,6 +11,8 @@ namespace FlightFight.UI.Components
  */
     internal class ButtonTextUI: MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        #region 私有与序列字段
+
         [Tooltip("缩放比")]
         [SerializeField] private float _hoverScaleRatio = 0.9f;
 
@@ -24,6 +26,10 @@ namespace FlightFight.UI.Components
         private TMP_Text _TmpText;
 
         private float _originalFontSzie;
+
+        #endregion
+
+        #region 生命周期
 
         void Start()
         {
@@ -75,8 +81,7 @@ namespace FlightFight.UI.Components
             if (_RightDashText)
                 _RightDashText.DOFade(0, _animDuration).SetEase(Ease.OutQuad);
         }
+
+        #endregion
     }
-
-
-
 }

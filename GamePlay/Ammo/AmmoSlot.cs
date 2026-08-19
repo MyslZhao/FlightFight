@@ -5,9 +5,9 @@ namespace FlightFight.GamePlay.Ammo
 {
     internal class AmmoSlot
     {
-        private AmmoEnum _Ammo;
+        private readonly AmmoEnum _Ammo;
 
-        private int _Storage;
+        private readonly int _Storage;
 
         private int _Number;
 

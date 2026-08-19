@@ -13,6 +13,8 @@ namespace FlightFight.GamePlay.Managers
     [RequireComponent(typeof(GlobalGameManager))]
     public class BulletManager: MonoBehaviour
     {
+        #region 私有与序列字段
+
         [Header("基础")]
         [SerializeField] private SerializableDictionary<AmmoEnum, BulletAssetData> _BulletAssets;
 
@@ -25,9 +27,16 @@ namespace FlightFight.GamePlay.Managers
 
         private static BulletManager _Instance;
 
+        #endregion
+
+        #region 公开字段
         internal static BulletManager Instance => _Instance;
 
         internal static IReadOnlyDictionary<AmmoEnum, BulletAssetData> BulletAssets => _Instance._BulletAssets;
+
+        #endregion
+
+        #region 生命周期
 
         private void Awake()
         {
@@ -48,6 +57,12 @@ namespace FlightFight.GamePlay.Managers
                 Debug.LogError("Bullet Manager unset, plz chack your Kellner");
             }
         }
+
+        #endregion
+
+        #region 方法实现与API
+
+        // NOTE: 部分方法职责徐进一步分化
 
         private BulletInitData _BulletInitFactory(PlaneIdentity identity, AmmoEnum type)
         {
@@ -110,7 +125,8 @@ namespace FlightFight.GamePlay.Managers
 
             plane.CauseDamage(_BulletAssets[type].Damage);
         }
-    }
 
+        #endregion
+    }
 }
 

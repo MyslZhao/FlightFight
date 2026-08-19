@@ -32,15 +32,15 @@ namespace FlightFight.GamePlay.Managers
 
         private BulletManager _BulletManager;
 
-        private Dictionary<PlaneIdentity, PlanePropertiesHandler> _Planes = new();
+        private readonly Dictionary<PlaneIdentity, PlanePropertiesHandler> _Planes = new();
 
-        private Dictionary<PlaneIdentity, Transform> _Transforms = new();
+        private readonly Dictionary<PlaneIdentity, Transform> _Transforms = new();
 
-        private Dictionary<PlaneIdentity, Controller> _Controllers = new();
+        private readonly Dictionary<PlaneIdentity, Controller> _Controllers = new();
 
         #endregion
 
-        #region 声明周期 
+        #region 生命周期 
 
         void Awake()
         {
@@ -93,7 +93,6 @@ namespace FlightFight.GamePlay.Managers
 
         private void _SafeDictionalize()
         {
-#pragma warning disable CS0612
 #pragma warning disable CS0618
             if (_Player && _Enemy)
             {
@@ -108,7 +107,6 @@ namespace FlightFight.GamePlay.Managers
                 Debug.LogError("Plz check your kellner if its empty.");
                 return;
             }
-#pragma warning restore CS0612
 #pragma warning restore CS0618
         }
 
