@@ -14,7 +14,7 @@ namespace FlightFight.GamePlay.Managers
     public class BulletManager: MonoBehaviour
     {
         [Header("基础")]
-        [SerializeField] private static SerializableDictionary<AmmoEnum, BulletAssetData> _BulletAssets;
+        [SerializeField] private SerializableDictionary<AmmoEnum, BulletAssetData> _BulletAssets;
 
         [SerializeField] private GameObject _BulletObject;
 
@@ -23,7 +23,23 @@ namespace FlightFight.GamePlay.Managers
 
         [SerializeField] private SerializableDictionary<PlaneIdentity, Sprite> _BulletSprites;
 
-        internal static IReadOnlyDictionary<AmmoEnum, BulletAssetData> BulletAssets => _BulletAssets;
+        private static BulletManager _Instance;
+
+        internal static BulletManager Instance => _Instance;
+
+        internal static IReadOnlyDictionary<AmmoEnum, BulletAssetData> BulletAssets => _Instance._BulletAssets;
+
+        private void Awake()
+        {
+            if (_Instance == null)
+            {
+                _Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         void Start()
         {

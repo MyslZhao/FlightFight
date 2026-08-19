@@ -52,7 +52,7 @@ namespace FlightFight.GamePlay.Handlers
 
         #region 生命周期
 
-        private void Awake()
+        private void Start()
         {
             _CurrentHealth = _MaxHealth;
             _CurrentEnergy = _MaxEnergy;
@@ -76,6 +76,7 @@ namespace FlightFight.GamePlay.Handlers
                 if (_RecoverCurrentTime >= _RecoverDeltaTime)
                 {
                     _CurrentEnergy += _RecoverFactor * _RecoverDeltaTime;
+                    GlobalGameManager.UpdateEnergy(_Identity, _CurrentEnergy);
                     _RecoverCurrentTime -= _RecoverDeltaTime;
                 }
             }
@@ -83,6 +84,8 @@ namespace FlightFight.GamePlay.Handlers
             {
                 _RecoverCurrentTime = 0;
             }
+
+            
         }
 
         internal void OnShoot(InputAction.CallbackContext context)
@@ -111,7 +114,7 @@ namespace FlightFight.GamePlay.Handlers
         private void _TryConsumeEnergy()
         {
             var _1 = BulletManager.BulletAssets[LoadedAmmo].Energy;
-            Debug.Assert(_CurrentEnergy < _1, "Your 'TryConsumeEnergy' makes the energy the negative ones.");
+            Debug.Assert(_CurrentEnergy >= _1, "Your 'TryConsumeEnergy' makes the energy the negative ones.");
             _CurrentEnergy -= _1;
         }
 

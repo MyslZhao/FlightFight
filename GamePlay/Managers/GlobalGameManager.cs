@@ -113,7 +113,7 @@ namespace FlightFight.GamePlay.Managers
         }
 
         private Vector2 _GetFaceVector() => 
-            (_Transforms[PlaneIdentity.SELF].position - _Transforms[PlaneIdentity.ENEMY].position).normalized;
+            - (_Transforms[PlaneIdentity.SELF].position - _Transforms[PlaneIdentity.ENEMY].position).normalized;
 
         #endregion
 
@@ -142,6 +142,10 @@ namespace FlightFight.GamePlay.Managers
         #endregion
 
         #region 对外API
+
+        public static void UpdateEnergy(PlaneIdentity identity, float energy) =>
+            _Instance._InfoManager.SetInfoTo(new InfoData(identity, InfoEnum.ENERGY)
+                , energy);
 
         public static Vector2 GetFaceVector() =>
             _Instance._GetFaceVector();
