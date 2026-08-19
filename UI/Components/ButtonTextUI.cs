@@ -21,12 +21,8 @@ namespace FlightFight.UI.Components
         [SerializeField] private TMP_Text _LeftDashText;
         [SerializeField] private TMP_Text _RightDashText;
 
-        private string _prefix = "- ";
-        private string _suffix = " -";
-
         private TMP_Text _TmpText;
 
-        private string _originalText;
         private float _originalFontSzie;
 
         void Start()
@@ -34,7 +30,6 @@ namespace FlightFight.UI.Components
             _TmpText = GetComponentInChildren<TMP_Text>();
             if (_TmpText)
             {
-                _originalText = _TmpText.text;
                 _originalFontSzie = _TmpText.fontSize;
             }
 

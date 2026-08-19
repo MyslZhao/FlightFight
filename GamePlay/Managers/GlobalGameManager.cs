@@ -76,10 +76,10 @@ namespace FlightFight.GamePlay.Managers
             if (_InfoManager)
             {
                 _InfoManager.Init(
-                    _Planes[PlaneIdentity.SELF].Health,
-                    _Planes[PlaneIdentity.SELF].Energy,
-                    _Planes[PlaneIdentity.ENEMY].Health,
-                    _Planes[PlaneIdentity.ENEMY].Energy);
+                    _Planes[PlaneIdentity.SELF].MaxHealth,
+                    _Planes[PlaneIdentity.SELF].MaxEnergy,
+                    _Planes[PlaneIdentity.ENEMY].MaxHealth,
+                    _Planes[PlaneIdentity.ENEMY].MaxEnergy);
             }
             else
             {
@@ -144,13 +144,13 @@ namespace FlightFight.GamePlay.Managers
         #region 对外API
 
         public static Vector2 GetFaceVector() =>
-            GlobalGameManager._Instance._GetFaceVector();
+            _Instance._GetFaceVector();
 
         public static void OnShoot(PlaneIdentity identity) =>
-            GlobalGameManager._Instance._OnShoot(identity);
+            _Instance._OnShoot(identity);
 
         public static void OnHit(PlaneIdentity identity, float damage) =>
-            GlobalGameManager._Instance._OnHit(identity, damage);
+            _Instance._OnHit(identity, damage);
 
         #endregion
     }
