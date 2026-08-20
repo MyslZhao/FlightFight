@@ -46,7 +46,12 @@ namespace FlightFight.GamePlay.Managers
             if (_Instance == null)
             {
                 _Instance = this;
-                DontDestroyOnLoad(gameObject);
+
+                if (!EnableTest)
+                {
+                    DontDestroyOnLoad(gameObject);
+                }
+                
             }
             else
             {

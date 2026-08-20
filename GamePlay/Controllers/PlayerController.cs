@@ -1,12 +1,13 @@
+using FlightFight.GamePlay.Controllers.Base;
+using FlightFight.GamePlay.Handlers;
+using FlightFight.GamePlay.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-using FlightFight.GamePlay.Controllers.Base;
-using FlightFight.GamePlay.Managers;
 
 namespace FlightFight.GamePlay.Controllers
 {
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(PlanePropertiesHandler))]
     internal class PlayerController: Controller
     {
         private Vector2 _moveInput;
@@ -14,12 +15,21 @@ namespace FlightFight.GamePlay.Controllers
         void Start()
         {
             _SelfRigidBody2D = GetComponent<Rigidbody2D>();
+            _planeProperties = GetComponent<PlanePropertiesHandler>();
         }
 
         public void OnMove(InputAction.CallbackContext context)
         {
             _moveInput = Vector2.zero;
             _moveInput = context.ReadValue<Vector2>();
+        }
+
+        public void OnShoot(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _planeProperties.Shoot();
+            }
         }
 
         private void FixedUpdate()

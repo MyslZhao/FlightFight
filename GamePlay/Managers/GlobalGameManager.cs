@@ -121,9 +121,9 @@ namespace FlightFight.GamePlay.Managers
         {
             var _1 = _Planes[identity];
             var _2 = _Transforms[identity];
+            var _cache = _2.position + _2.up * 0.2f;
 
-
-            if (_BulletManager.Shoot(_1, _2.position, _2.rotation))
+            if (_BulletManager.Shoot(_1, _cache, _2.rotation))
             {
                 _1.TryShoot();
                 _InfoManager.SetInfoTo(new InfoData(identity, InfoEnum.ENERGY),

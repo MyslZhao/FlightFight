@@ -88,16 +88,12 @@ namespace FlightFight.GamePlay.Handlers
             
         }
 
-        internal void OnShoot(InputAction.CallbackContext context)
+        internal void Shoot()
         {
-            if (context.performed)
+            var _1 = _BulletGroup.LoadedAmmo;
+            if (_IsShootable(_1))
             {
-                var _1 = _BulletGroup.LoadedAmmo;
-                if (_IsShootable(_1))
-                {
-                    var _cache = transform.position + transform.up * 0.2f;
-                    GlobalGameManager.OnShoot(_Identity);
-                }
+                GlobalGameManager.OnShoot(_Identity);
             }
         }
 

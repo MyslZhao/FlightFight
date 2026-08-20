@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using FlightFight.GamePlay.Managers;
+using FlightFight.GamePlay.Handlers;
 
 namespace FlightFight.GamePlay.Controllers.Base
 {
@@ -11,6 +12,8 @@ namespace FlightFight.GamePlay.Controllers.Base
         [SerializeField] protected float _MoveSpeed = 5.0f;
 
         protected Rigidbody2D _SelfRigidBody2D;
+
+        protected PlanePropertiesHandler _planeProperties;
 
         protected Vector2 _FaceTargetDir;
 
