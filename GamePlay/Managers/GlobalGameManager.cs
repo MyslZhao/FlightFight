@@ -26,7 +26,7 @@ namespace FlightFight.GamePlay.Managers
 
         [Header("UI管理")]
 
-        [SerializeField] private InfoPanelManager _InfoManager;
+        [SerializeField] private ValuePanelManager _InfoManager;
 
         private static GlobalGameManager _Instance;
 

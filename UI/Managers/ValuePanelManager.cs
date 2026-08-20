@@ -9,7 +9,7 @@ using System;
 
 namespace FlightFight.UI.Managers
 {
-    public class InfoPanelManager : MonoBehaviour
+    public class ValuePanelManager : MonoBehaviour
     {
         #region 私有与序列字段
 
