@@ -47,7 +47,8 @@ namespace FlightFight.GamePlay.Controllers.Base
 
         private void FixedUpdate()
         {
-            BulletMove.MoveLists[_Type]();
+            BulletMove.MoveLists[_Type](_Rigidbody, 
+                GlobalGameManager.GetFaceTo(_Identity, _Transform.position));
 
             _CurrentTime += Time.fixedDeltaTime;
             if (_CurrentTime > _LifeTime)
@@ -96,8 +97,7 @@ namespace FlightFight.GamePlay.Controllers.Base
             //    return;
             //}
 
-
-            BulletMove.MotionInits[_Type](_Rigidbody, _Transform, bulletData.Speed);
+            _Rigidbody.linearVelocity = transform.up * bulletData.Speed;
 
             GetComponent<BoxCollider2D>().enabled = true;
         }

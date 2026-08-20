@@ -34,7 +34,7 @@ namespace FlightFight.GamePlay.Controllers
 
         private void FixedUpdate()
         {
-            _FaceTargetDir = GlobalGameManager.GetFaceVector();
+            _FaceTargetDir = GlobalGameManager.GetFaceTo(_planeProperties.Identity, transform.position);
             _FaceLock();
 
 

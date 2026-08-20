@@ -23,7 +23,7 @@ namespace FlightFight.GamePlay.Controllers
         {
             _Timer += Time.fixedDeltaTime;
 
-            _FaceTargetDir = -GlobalGameManager.GetFaceVector();
+            _FaceTargetDir = GlobalGameManager.GetFaceTo(_planeProperties.Identity, transform.position);
             _FaceLock();
 
             if (_Timer > 0.5)

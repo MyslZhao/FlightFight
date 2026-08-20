@@ -113,8 +113,8 @@ namespace FlightFight.GamePlay.Managers
 #pragma warning restore CS0618
         }
 
-        private Vector2 _GetFaceVector() => 
-            - (_Transforms[PlaneIdentity.SELF].position - _Transforms[PlaneIdentity.ENEMY].position).normalized;
+        private Vector2 _GetFaceTo(Vector3 ALocation, Vector3 BLocation) => 
+            - (ALocation - BLocation).normalized;
 
         #endregion
 

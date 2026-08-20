@@ -64,10 +64,45 @@ namespace FlightFight.GamePlay.Managers
 
         // NOTE: 部分方法职责徐进一步分化
 
-        private BulletInitData _BulletInitFactory(PlaneIdentity identity, AmmoEnum type)
+        private BulletInitData _InitDataFactory(PlaneIdentity identity, AmmoEnum type)
         {
             BulletAssetData _cache = _BulletAssets[type];
             return new BulletInitData(identity, type, _cache.Speed, _cache.LastTime);
+        }
+
+        private void _Init(AmmoEnum type, Vector2 location, Quaternion direction, BulletInitData data)
+        {
+            var _1 = Instantiate(_BulletObject, location, direction);
+            //_1.SetActive(false);
+
+            _1.GetComponent<BulletController>().Init(data);
+
+            _1.GetComponent<SpriteRenderer>().sprite = _BulletSprites[data.Identity];
+        }
+
+        private void _Create(AmmoEnum type, Vector2 location, Quaternion direction, BulletInitData data)
+        {
+            switch (type)
+            {
+                case AmmoEnum.NORMAL:
+                    _Init(type, location, direction, data);
+                    break;
+                case AmmoEnum.SNIPER:
+                    _Init(type, location, direction, data);
+                    break;
+                case AmmoEnum.TRACE:
+                    _Init(type, location, direction, data);
+                    break;
+                case AmmoEnum.TRIANT:
+                    _Init(type, location, direction, data);
+                    _Init(type, location, 
+                        Quaternion.Euler(direction.eulerAngles + new Vector3(0, 0, 15)), data);
+                    _Init(type, location, 
+                        Quaternion.Euler(direction.eulerAngles + new Vector3(0, 0, -15)), data);
+                    break;
+                case AmmoEnum:
+                    return;
+            }
         }
 
         internal bool Shoot(PlanePropertiesHandler plane, Vector3 location, Quaternion direction)
@@ -75,33 +110,10 @@ namespace FlightFight.GamePlay.Managers
             var _ammo = plane.LoadedAmmo;
             var _identity = plane.Identity;
             //float _angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-            BulletInitData _cache = _BulletInitFactory(_identity, _ammo);
+            BulletInitData _cache = _InitDataFactory(_identity, _ammo);
 
-            GameObject _1;
-            switch(_ammo)
-            {
-                case AmmoEnum.NORMAL:
-                    _1 = Instantiate(_BulletObject, location, direction);
-                    //_1.SetActive(false);
-                    // 提供子弹运动与碰撞所需参数
-                    _1.GetComponent<BulletController>().Init(_cache);
-                    // 设置(覆盖Default)贴图
-                    _1.GetComponent<SpriteRenderer>().sprite = _BulletSprites[_identity];
-                    //_1.SetActive(true);
-                    break;
-                case AmmoEnum.SNIPER:
-                    _1 = Instantiate(_BulletObject, location, direction);
-                    break;
-                case AmmoEnum.TRACE:
-                    _1 = Instantiate(_BulletObject, location, direction);
-                    break;
-                case AmmoEnum.TRIANT:
-                    _1 = Instantiate(_BulletObject, location, direction);
-                    break;
-                case AmmoEnum:
-                    _1 = null;
-                    break;
-            };
+            _Create(_ammo, location, direction, _cache);
+
             return true;
         }
 

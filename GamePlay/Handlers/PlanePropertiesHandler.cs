@@ -116,7 +116,7 @@ namespace FlightFight.GamePlay.Handlers
             _CurrentEnergy -= _1;
         }
 
-        private void _TryConsumeAmmo() =>
+        private bool _TryConsumeAmmo() =>
             _BulletGroup.TryConsume();
 
 
@@ -135,7 +135,11 @@ namespace FlightFight.GamePlay.Handlers
         internal void TryShoot()
         {
             _TryConsumeEnergy();
-            _TryConsumeAmmo();
+
+            if (_TryConsumeAmmo())
+            {
+                GlobalGameManager.UpdateAmmo(_Identity, LoadedAmmo);
+            }
         }
 
         internal void TryCauseDamage(float damage) =>
