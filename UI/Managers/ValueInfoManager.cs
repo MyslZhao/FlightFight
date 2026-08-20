@@ -9,36 +9,36 @@ using System;
 
 namespace FlightFight.UI.Managers
 {
-    public class ValuePanelManager : MonoBehaviour
+    public class ValueInfoManager : MonoBehaviour
     {
         #region 私有与序列字段
 
         [Header("参数面板")]
         [Obsolete(" 请使用 _InfoTexts 替代")]
-        [SerializeField] private SerializableDictionary<InfoData.Sid, TMP_Text> _SidTexts = new();
+        [SerializeField] private SerializableDictionary<ValueInfoData.Sid, TMP_Text> _SidTexts = new();
 
         [Header("参数设置")]
         [SerializeField] private float _UpdateFPS;
 
-        private Dictionary<InfoData, TMP_Text> _InfoTexts = new();
+        private readonly Dictionary<ValueInfoData, TMP_Text> _InfoTexts = new();
 
-        private readonly Dictionary<InfoData, string> _TextPatterns = new()
+        private readonly Dictionary<ValueInfoData, string> _TextPatterns = new()
         {
-            {InfoData.SELF_HEALTH, "Player Health:" },
+            {ValueInfoData.SELF_HEALTH, "Player Health:" },
 
-            {InfoData.SELF_ENERGY, "Player Energy:" },
+            {ValueInfoData.SELF_ENERGY, "Player Energy:" },
 
-            {InfoData.ENEMY_HEALTH, "Enemy Health:" },
+            {ValueInfoData.ENEMY_HEALTH, "Enemy Health:" },
 
-            {InfoData.ENEMY_ENERGY, "Enemy Energy:" }
+            {ValueInfoData.ENEMY_ENERGY, "Enemy Energy:" }
         };
 
-        private Dictionary<InfoData, float> _RawInfo = new()
+        private Dictionary<ValueInfoData, float> _RawInfo = new()
         {
-            {InfoData.SELF_HEALTH, 0.0f },
-            {InfoData.SELF_ENERGY, 0.0f },
-            {InfoData.ENEMY_HEALTH, 0.0f },
-            {InfoData.ENEMY_ENERGY, 0.0f }
+            {ValueInfoData.SELF_HEALTH, 0.0f },
+            {ValueInfoData.SELF_ENERGY, 0.0f },
+            {ValueInfoData.ENEMY_HEALTH, 0.0f },
+            {ValueInfoData.ENEMY_ENERGY, 0.0f }
         };
 
         private bool _IsInit = false;
@@ -57,37 +57,35 @@ namespace FlightFight.UI.Managers
 
         private void _SafeDictionalize()
         {
-#pragma warning disable CS0612
 #pragma warning disable CS0618
             foreach (var i in _SidTexts.Keys)
             {
-                _InfoTexts.Add(InfoData.Standard[i], _SidTexts[i]);
+                _InfoTexts.Add(ValueInfoData.Standard[i], _SidTexts[i]);
             }
             _SidTexts = null;
-#pragma warning restore CS0612
 #pragma warning restore CS0618
 
         }
 
-        private void _UpdateByType(InfoData type)
+        private void _UpdateByType(ValueInfoData type)
         {
             _InfoTexts[type].text = _TextPatterns[type] + $" {_RawInfo[type]:F1}";
         }
 
         private void _UpdateAll()
         {
-            _UpdateByType(InfoData.SELF_HEALTH);
-            _UpdateByType(InfoData.SELF_ENERGY);
-            _UpdateByType(InfoData.ENEMY_HEALTH);
-            _UpdateByType(InfoData.ENEMY_ENERGY);
+            _UpdateByType(ValueInfoData.SELF_HEALTH);
+            _UpdateByType(ValueInfoData.SELF_ENERGY);
+            _UpdateByType(ValueInfoData.ENEMY_HEALTH);
+            _UpdateByType(ValueInfoData.ENEMY_ENERGY);
         }
 
         private void _SetAll(float selfHealth, float selfEnergy, float enemyHealth, float enemyEnergy)
         {
-            SetInfoTo(InfoData.SELF_HEALTH, selfHealth);
-            SetInfoTo(InfoData.SELF_ENERGY, selfEnergy);
-            SetInfoTo(InfoData.ENEMY_HEALTH, enemyHealth);
-            SetInfoTo(InfoData.ENEMY_ENERGY, enemyEnergy);
+            SetInfoTo(ValueInfoData.SELF_HEALTH, selfHealth);
+            SetInfoTo(ValueInfoData.SELF_ENERGY, selfEnergy);
+            SetInfoTo(ValueInfoData.ENEMY_HEALTH, enemyHealth);
+            SetInfoTo(ValueInfoData.ENEMY_ENERGY, enemyEnergy);
             _UpdateAll();
         }
 
@@ -109,17 +107,19 @@ namespace FlightFight.UI.Managers
             }
         }
 
-        public void SetInfoTo(InfoData infoType, float value)
+        public void SetInfoTo(ValueInfoData infoType, float value)
         {
             _RawInfo[infoType] = value;
             _UpdateByType(infoType);
         }
 
-        public void SetInfoBy(InfoData infoType, float deltaValue)
+        /*
+        public void SetInfoBy(ValueInfoData infoType, float deltaValue)
         {
             _RawInfo[infoType] += deltaValue;
             _UpdateByType(infoType);
         }
+        */
 
         #endregion
     }

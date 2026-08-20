@@ -8,6 +8,7 @@ using FlightFight.Shared.Data;
 using FlightFight.UI.Managers;
 using System;
 using System.Runtime.CompilerServices;
+using FlightFight.UI.Manager;
 
 namespace FlightFight.GamePlay.Managers
 {
@@ -26,7 +27,9 @@ namespace FlightFight.GamePlay.Managers
 
         [Header("UI管理")]
 
-        [SerializeField] private ValuePanelManager _InfoManager;
+        [SerializeField] private ValueInfoManager _ValueInfoManager;
+
+        [SerializeField] private AmmoInfoManager _AmmoInfoManager;
 
         private static GlobalGameManager _Instance;
 
@@ -73,9 +76,9 @@ namespace FlightFight.GamePlay.Managers
 
             // UI初始化
 
-            if (_InfoManager)
+            if (_ValueInfoManager)
             {
-                _InfoManager.Init(
+                _ValueInfoManager.Init(
                     _Planes[PlaneIdentity.SELF].MaxHealth,
                     _Planes[PlaneIdentity.SELF].MaxEnergy,
                     _Planes[PlaneIdentity.ENEMY].MaxHealth,
@@ -126,7 +129,7 @@ namespace FlightFight.GamePlay.Managers
             if (_BulletManager.Shoot(_1, _cache, _2.rotation))
             {
                 _1.TryShoot();
-                _InfoManager.SetInfoTo(new InfoData(identity, InfoEnum.ENERGY),
+                _ValueInfoManager.SetInfoTo(new ValueInfoData(identity, ValueInfoEnum.ENERGY),
                     _1.Energy);
             }
         }
@@ -136,7 +139,7 @@ namespace FlightFight.GamePlay.Managers
             var _1 = BulletManager.BulletAssets[bullet].Damage;
 
             _Planes[identity].TryCauseDamage(_1);
-            _InfoManager.SetInfoTo(new InfoData(identity, InfoEnum.HEALTH),
+            _ValueInfoManager.SetInfoTo(new ValueInfoData(identity, ValueInfoEnum.HEALTH),
                 _Planes[identity].Health);
         }
 
@@ -144,17 +147,33 @@ namespace FlightFight.GamePlay.Managers
 
         #region 对外API
 
-        public static void UpdateEnergy(PlaneIdentity identity, float energy) =>
-            _Instance._InfoManager.SetInfoTo(new InfoData(identity, InfoEnum.ENERGY)
-                , energy);
+        internal static void UpdateAmmo(PlaneIdentity identity, AmmoEnum newAmmo) =>
+            _Instance._AmmoInfoManager.SetAmmoTo(identity,
+                BulletManager.BulletAssets[newAmmo].IconSprites[identity]);
 
-        public static Vector2 GetFaceVector() =>
-            _Instance._GetFaceVector();
+        internal static void UpdateEnergy(PlaneIdentity identity, float energy) =>
+            _Instance._ValueInfoManager.SetInfoTo(new ValueInfoData(identity, ValueInfoEnum.ENERGY),
+                energy);
 
-        public static void OnShoot(PlaneIdentity identity) =>
+        // 考虑未来是否用字典取代
+        internal static Vector2 GetFaceTo(PlaneIdentity identity, Vector3 location) =>
+            (identity) switch
+            {
+                PlaneIdentity.SELF =>
+                    _Instance._GetFaceTo(location, _Instance._Transforms[PlaneIdentity.ENEMY].position),
+                PlaneIdentity.ENEMY =>
+                    _Instance._GetFaceTo(location, _Instance._Transforms[PlaneIdentity.SELF].position),
+                PlaneIdentity.NONE =>
+                    Vector2.zero,
+                PlaneIdentity =>
+                    Vector2.zero
+            };
+
+
+        internal static void OnShoot(PlaneIdentity identity) =>
             _Instance._OnShoot(identity);
 
-        public static void OnHit(PlaneIdentity plane, AmmoEnum bullet) =>
+        internal static void OnHit(PlaneIdentity plane, AmmoEnum bullet) =>
             _Instance._OnHit(plane, bullet);
 
         internal static void OnMiss(GameObject bullet) =>

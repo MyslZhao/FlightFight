@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FlightFight.Shared.Enums
 {
-    public enum InfoEnum
+    public enum ValueInfoEnum
     {
         HEALTH,
         ENERGY
