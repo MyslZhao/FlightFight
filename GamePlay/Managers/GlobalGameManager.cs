@@ -131,10 +131,13 @@ namespace FlightFight.GamePlay.Managers
             }
         }
 
-        private void _OnHit(PlaneIdentity identity, float damage)
+        private void _OnHit(PlaneIdentity identity, AmmoEnum bullet)
         {
-            //_InfoManager.SetInfoBy(new InfoData(identity, InfoEnum.HEALTH), -damage);
-            //逻辑待定
+            var _1 = BulletManager.BulletAssets[bullet].Damage;
+
+            _Planes[identity].TryCauseDamage(_1);
+            _InfoManager.SetInfoTo(new InfoData(identity, InfoEnum.HEALTH),
+                _Planes[identity].Health);
         }
 
         #endregion
@@ -151,8 +154,11 @@ namespace FlightFight.GamePlay.Managers
         public static void OnShoot(PlaneIdentity identity) =>
             _Instance._OnShoot(identity);
 
-        public static void OnHit(PlaneIdentity identity, float damage) =>
-            _Instance._OnHit(identity, damage);
+        public static void OnHit(PlaneIdentity plane, AmmoEnum bullet) =>
+            _Instance._OnHit(plane, bullet);
+
+        internal static void OnMiss(GameObject bullet) =>
+            _Instance._BulletManager.Dismiss(bullet);
 
         #endregion
     }

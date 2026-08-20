@@ -118,9 +118,16 @@ namespace FlightFight.GamePlay.Handlers
             _CurrentEnergy -= _1;
         }
 
-        private void _TryConsumeAmmo()
-        {
+        private void _TryConsumeAmmo() =>
             _BulletGroup.TryConsume();
+
+
+        private void _TryCauseDamage(float damage)
+        {
+            _CurrentHealth -= damage;
+            Debug.Assert(_CurrentHealth >= 0, "");
+            if (_CurrentHealth < 0)
+                _CurrentHealth = 0;
         }
 
         #endregion
@@ -133,12 +140,8 @@ namespace FlightFight.GamePlay.Handlers
             _TryConsumeAmmo();
         }
 
-        internal void CauseDamage(float damage)
-        {
-            _CurrentHealth -= damage;
-            if (_CurrentHealth < 0)
-                _CurrentHealth = 0;
-        }
+        internal void TryCauseDamage(float damage) =>
+            _TryCauseDamage(damage);
 
         #endregion
     }

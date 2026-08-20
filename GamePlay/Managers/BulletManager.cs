@@ -30,7 +30,6 @@ namespace FlightFight.GamePlay.Managers
         #endregion
 
         #region 公开字段
-        internal static BulletManager Instance => _Instance;
 
         internal static IReadOnlyDictionary<AmmoEnum, BulletAssetData> BulletAssets => _Instance._BulletAssets;
 
@@ -84,7 +83,7 @@ namespace FlightFight.GamePlay.Managers
                     _1 = Instantiate(_BulletObject, location, direction);
                     //_1.SetActive(false);
                     // 提供子弹运动与碰撞所需参数
-                    _1.GetComponent<BulletController>().Init(this,_cache);
+                    _1.GetComponent<BulletController>().Init(_cache);
                     // 设置(覆盖Default)贴图
                     _1.GetComponent<SpriteRenderer>().sprite = _BulletSprites[_identity];
                     //_1.SetActive(true);
@@ -105,10 +104,10 @@ namespace FlightFight.GamePlay.Managers
             return true;
         }
 
-        internal void Dismiss(GameObject bulletObject)
-        {
+        // 打算弃用
+        internal void Dismiss(GameObject bulletObject) =>
             Destroy(bulletObject);
-        }
+
 
         internal void Hit(GameObject bulletObject, PlanePropertiesHandler plane)
         {
@@ -123,7 +122,7 @@ namespace FlightFight.GamePlay.Managers
             AmmoEnum type = bulletObject.GetComponent<BulletController>().AmmoType;
             Destroy(bulletObject);
 
-            plane.CauseDamage(_BulletAssets[type].Damage);
+            plane.TryCauseDamage(_BulletAssets[type].Damage);
         }
 
         #endregion
