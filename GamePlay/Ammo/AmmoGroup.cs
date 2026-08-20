@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Linq;
 using FlightFight.GamePlay.Managers;
+using FlightFight.Shared.Data;
 using FlightFight.Shared.Enums;
 
 namespace FlightFight.GamePlay.Ammo
@@ -24,13 +25,15 @@ namespace FlightFight.GamePlay.Ammo
             }
         }
 
-        internal void TryConsume()
+        internal bool TryConsume()
         {
             if (_LoadedAmmoSlot.TryConsume())
             {
                 _SlotCounter += 1;
                 _SlotCounter %= 5;
+                return true;
             }
+            return false;
         }
     }
 

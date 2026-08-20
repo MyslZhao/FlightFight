@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 namespace FlightFight.UI.Managers
 {
-
     /**
      * 场景切换器
      */
@@ -13,7 +12,6 @@ namespace FlightFight.UI.Managers
         public void LoadScene(string sceneName, GameObject GlobalKellner)
         {
             StartCoroutine(_LoadScene(sceneName));
-
         }
 
         private System.Collections.IEnumerator _LoadScene(string sceneName)

@@ -66,6 +66,8 @@ namespace FlightFight.GamePlay.Handlers
                     _BulletGroup = new AmmoGroup(DataTransManager.EnemyAmmo);
                     break;
             }
+
+            GlobalGameManager.UpdateAmmo(_Identity, LoadedAmmo);
         }
 
         private void FixedUpdate()
