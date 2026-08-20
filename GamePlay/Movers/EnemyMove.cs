@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using FlightFight.GamePlay.Handlers;
 using UnityEngine;
 
 // Test-Only
@@ -9,31 +8,32 @@ namespace FlightFight.GamePlay.Movers
 {
     internal static class EnemyMove
     {
-        // BUG!!
-        private static readonly Action<Rigidbody2D, Vector2, float, float>[] BotMoveLogic =
+        static private readonly System.Random _Types = new();
+
+        static private readonly System.Random _Odds = new();
+
+        static private readonly Action<Rigidbody2D, PlanePropertiesHandler, Vector2, float>[] BotMoveLogic =
         {
-            (_rb, _moveDir, _moveSpeed, _aFactor) =>
+            (_rb, properties, _moveDir, _moveSpeed) =>
             {
-                Vector2 _cache =  (_moveDir * _aFactor).normalized * _moveSpeed;
+                Vector2 _cache =  _moveDir.normalized * _moveSpeed;
                 _rb.linearVelocity = _cache;
+            },
+            (_rb, properties, _moveDir, _moveSpeed) =>
+            {
+                properties.Shoot();
             }
         };
 
-        // BUG!!
-        public static void BotMove(Rigidbody2D BotRigidbody, float BotSpeed, float AccelerationFactor)
-        {
-            System.Random rand = new System.Random();
-
-            BotMoveLogic[0](
-                BotRigidbody,
-                new Vector2((float) rand.NextDouble() - 0.5f, (float) rand.NextDouble() - 0.5f),
-                BotSpeed,
-                AccelerationFactor
+        static internal void BotMove(Rigidbody2D rigidbody, PlanePropertiesHandler planeProperties, float speed) =>
+            BotMoveLogic[_Types.Next(0, 2)](
+                rigidbody,
+                planeProperties,
+                new Vector2((float) _Odds.NextDouble() - 0.5f, (float) _Odds.NextDouble() - 0.5f),
+                speed
                 );
 
-        }
-
-        public static void OtherMove()
+        static internal void OtherMove()
         {
 
         }

@@ -11,8 +11,6 @@ namespace FlightFight.GamePlay.Controllers
     [RequireComponent(typeof(PlanePropertiesHandler))]
     internal class BotController: Controller
     {
-        [SerializeField] private float _AccelerationFactor = 0.1f;
-
         private float _Timer = 0f;
 
         void Start()
@@ -30,7 +28,7 @@ namespace FlightFight.GamePlay.Controllers
 
             if (_Timer > 0.5)
             {
-                EnemyMove.BotMove(_SelfRigidBody2D, _MoveSpeed, _AccelerationFactor);
+                EnemyMove.BotMove(_SelfRigidBody2D, _planeProperties, _MoveSpeed);
                 _Timer -= 0.5f;
             }
 
