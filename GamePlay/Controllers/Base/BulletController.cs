@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-
+﻿using FlightFight.GamePlay.Handlers;
 using FlightFight.GamePlay.Managers;
-using FlightFight.Shared.Enums;
-using FlightFight.GamePlay.Handlers;
 using FlightFight.Shared.Data;
-using FlightFight.GamePlay.Movers;
+using FlightFight.Shared.Enums;
+using UnityEngine;
 
 namespace FlightFight.GamePlay.Controllers.Base
 {
@@ -24,6 +22,8 @@ namespace FlightFight.GamePlay.Controllers.Base
         private Transform _Transform;
 
         private float _LifeTime;
+
+        private float _TraceFactor;
 
         private float _CurrentTime = 0.0f;
 
@@ -47,8 +47,10 @@ namespace FlightFight.GamePlay.Controllers.Base
 
         private void FixedUpdate()
         {
-            BulletMove.MoveLists[_Type](_Rigidbody, 
-                GlobalGameManager.GetFaceTo(_Identity, _Transform.position));
+            var _1 = _Rigidbody.linearVelocity.magnitude;
+            _Rigidbody.linearVelocity = 
+                (_Rigidbody.linearVelocity + _TraceFactor * GlobalGameManager.GetFaceTo(_Identity, _Transform.position))
+                .normalized * _1;
 
             _CurrentTime += Time.fixedDeltaTime;
             if (_CurrentTime > _LifeTime)
@@ -89,6 +91,7 @@ namespace FlightFight.GamePlay.Controllers.Base
             _Identity = bulletData.Identity;
             _Type = bulletData.Type;
             _LifeTime = bulletData.LastTime;
+            _TraceFactor = bulletData.TraceFactor;
 
 
             //if (!_Rigidbody)

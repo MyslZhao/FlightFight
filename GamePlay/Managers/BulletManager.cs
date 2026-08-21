@@ -67,7 +67,7 @@ namespace FlightFight.GamePlay.Managers
         private BulletInitData _InitDataFactory(PlaneIdentity identity, AmmoEnum type)
         {
             BulletAssetData _cache = _BulletAssets[type];
-            return new BulletInitData(identity, type, _cache.Speed, _cache.LastTime);
+            return new BulletInitData(identity, type, _cache.Speed, _cache.LastTime, _cache.TraceFactor);
         }
 
         private void _Init(AmmoEnum type, Vector2 location, Quaternion direction, BulletInitData data)

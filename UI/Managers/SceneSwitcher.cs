@@ -9,7 +9,7 @@ namespace FlightFight.UI.Managers
      */
     internal class SceneSwitcher: MonoBehaviour
     {
-        public void LoadScene(string sceneName, GameObject GlobalKellner)
+        public void LoadScene(string sceneName)
         {
             StartCoroutine(_LoadScene(sceneName));
         }

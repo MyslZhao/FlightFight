@@ -123,7 +123,7 @@ namespace FlightFight.GamePlay.Handlers
         private void _TryCauseDamage(float damage)
         {
             _CurrentHealth -= damage;
-            Debug.Assert(_CurrentHealth >= 0, "");
+            Debug.Assert(_CurrentHealth >= 0, "Someone Win!!");
             if (_CurrentHealth < 0)
                 _CurrentHealth = 0;
         }

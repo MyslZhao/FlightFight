@@ -9,12 +9,15 @@ namespace FlightFight.Shared.Data
         public float Speed { get; }
         public float LastTime { get; }
 
-        public BulletInitData(PlaneIdentity identity, AmmoEnum type, float speed, float lastTime)
+        public float TraceFactor { get; }
+
+        public BulletInitData(PlaneIdentity identity, AmmoEnum type, float speed, float lastTime, float traceFactor)
         {
             Identity = identity;
             Type = type;
             Speed = speed;
             LastTime = lastTime;
+            TraceFactor = traceFactor;
         }
     }
 }

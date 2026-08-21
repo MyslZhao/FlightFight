@@ -22,6 +22,8 @@ namespace FlightFight.Shared.DataAssets
 
         [SerializeField] private int _Storage;
 
+        [SerializeField] private float _TraceFactor;
+
         [SerializeField] private float _LastTime;
 
         [Header("样式")]
@@ -37,6 +39,8 @@ namespace FlightFight.Shared.DataAssets
         public float Energy => _Energy;
 
         public int Storage => _Storage;
+
+        public float TraceFactor => _TraceFactor;
 
         public float LastTime => _LastTime;
 
